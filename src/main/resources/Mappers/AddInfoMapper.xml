@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cms.mapper.AddInfoMapper">
+    <insert id="insertCompetitionName" parameterType="String">
+        INSERT INTO competition_name
+        VALUES(#{competitionName})
+    </insert>
+
+    <insert id="insertMajor" parameterType="String">
+        INSERT INTO major
+        VALUES(#{major})
+    </insert>
+
+    <insert id="insertFaculty" parameterType="String">
+        INSERT INTO faculty
+        VALUES(#{faculty})
+    </insert>
+
+    <insert id="insertCompetitionResult" parameterType="com.cms.utils.Result">
+        INSERT INTO competition_result
+        VALUES(#{studentName}, #{studentNumber}, #{major}, #{faculty}, #{group}, #{title}, #{grade}, #{mentor}, #{prize}, #{competitionName}, #{inFaculty}, #{year})
+    </insert>
+</mapper>
+
