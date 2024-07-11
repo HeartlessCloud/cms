@@ -13,8 +13,16 @@ public class AddInfoService {
     /**
      * 添加竞赛名称
      */
-    public boolean addcompetitionName(String competitionName){
+    public boolean addCompetitionName(String competitionName){
         int isSuccess = addInfoMapper.insertCompetitionName(competitionName);
+        return isSuccess > 0;
+    }
+
+    /**
+     * 删除竞赛名称
+     */
+    public boolean deleteCompetitionName(int sequence){
+        int isSuccess = addInfoMapper.deleteCompetitionName(sequence);
         return isSuccess > 0;
     }
 
@@ -27,10 +35,26 @@ public class AddInfoService {
     }
 
     /**
+     * 删除专业
+     */
+    public boolean deleteMajor(int sequence){
+        int isSuccess = addInfoMapper.deleteMajor(sequence);
+        return isSuccess > 0;
+    }
+
+    /**
      * 添加学院
      */
     public boolean addFaculty(String faculty){
         int isSuccess = addInfoMapper.insertFaculty(faculty);
+        return isSuccess > 0;
+    }
+
+    /**
+     * 删除学院条目
+     */
+    public boolean deleteFaculty(int sequence){
+        int isSuccess = addInfoMapper.deleteCompetitionName(sequence);
         return isSuccess > 0;
     }
 

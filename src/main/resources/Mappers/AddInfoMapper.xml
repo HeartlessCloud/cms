@@ -4,23 +4,39 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.cms.mapper.AddInfoMapper">
     <insert id="insertCompetitionName" parameterType="String">
-        INSERT INTO competition_name
+        INSERT INTO competition_name(competition_name)
         VALUES(#{competitionName})
     </insert>
 
+    <delete id="deleteCompetitionName" parameterType="int">
+            DELETE FROM competition_name
+            WHERE sequence = #{sequence}
+    </delete>
+
     <insert id="insertMajor" parameterType="String">
-        INSERT INTO major
+        INSERT INTO major(major)
         VALUES(#{major})
     </insert>
 
+    <delete id="deleteMajor" parameterType="int">
+            DELETE FROM major
+            WHERE sequence = #{sequence}
+    </delete>
+
     <insert id="insertFaculty" parameterType="String">
-        INSERT INTO faculty
+        INSERT INTO faculty(faculty)
         VALUES(#{faculty})
     </insert>
 
+    <delete id="deleteFaculty" parameterType="int">
+            DELETE FROM faculty
+            WHERE sequence = #{sequence}
+    </delete>
+
     <insert id="insertCompetitionResult" parameterType="com.cms.utils.Result">
-        INSERT INTO competition_result
+        INSERT INTO competition_result(student_name, student_number, major, faculty, `group`, title, grade, mentor, prize, competition_name, in_faculty, year)
         VALUES(#{studentName}, #{studentNumber}, #{major}, #{faculty}, #{group}, #{title}, #{grade}, #{mentor}, #{prize}, #{competitionName}, #{inFaculty}, #{year})
     </insert>
+
 </mapper>
 

@@ -21,8 +21,14 @@ public class AddInfoController {
 
     @PostMapping("/competition-name")
     public Result addCompetitionName(@RequestParam String competitionName){
-        if(addInfoService.addcompetitionName(competitionName)) return Result.success();
+        if(addInfoService.addCompetitionName(competitionName)) return Result.success();
         else return Result.error("添加竞赛名称失败！");
+    }
+
+    @DeleteMapping("/competition-name")
+    public Result deleteCompetitionName(@RequestParam int sequence){
+        if(addInfoService.deleteCompetitionName(sequence)) return Result.success();
+        else return Result.error("删除竞赛条目失败！");
     }
 
     @PostMapping("/major")
@@ -31,9 +37,21 @@ public class AddInfoController {
         else return Result.error("添加专业失败！");
     }
 
+    @DeleteMapping("/major")
+    public Result deleteMajor(@RequestParam int sequence){
+        if(addInfoService.deleteMajor(sequence)) return Result.success();
+        else return Result.error("删除专业名称条目失败！");
+    }
+
     @PostMapping("/faculty")
     public Result addFaculty(@RequestParam String faculty){
         if(addInfoService.addFaculty(faculty)) return Result.success();
         else return Result.error("添加学院名称失败！");
+    }
+
+    @DeleteMapping("/faculty")
+    public Result deleteFaculty(@RequestParam int sequence){
+        if(addInfoService.deleteFaculty(sequence)) return Result.success();
+        else return Result.error("删除学院条目失败");
     }
 }
