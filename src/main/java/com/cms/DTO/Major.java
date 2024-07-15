@@ -10,3 +10,5 @@ import lombok.NoArgsConstructor;
 public class Major {
     private String major;
 }
+
+
