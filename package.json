@@ -1,0 +1,7 @@
+{
+  "name": "cms",
+  "version": "1.0.0",
+  "dependencies": {
+    "xlsx": "^0.18.5"
+  }
+}

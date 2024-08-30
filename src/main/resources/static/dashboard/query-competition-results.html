@@ -1,0 +1,523 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.14/dist/css/bootstrap-select.min.css">
+    <link href="https://fonts.googleapis.com/css?family=Nunito:400,600|Open+Sans:400,600,700" rel="stylesheet">
+    <link rel="stylesheet" href="css/spur.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert2/11.12.4/sweetalert2.min.css" integrity="sha512-WxRv0maH8aN6vNOcgNFlimjOhKp+CUqqNougXbz0E+D24gP5i+7W/gcc5tenxVmr28rH85XHF5eXehpV2TQhRg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert2/11.12.4/sweetalert2.min.js" integrity="sha512-w4LAuDSf1hC+8OvGX+CKTcXpW4rQdfmdD8prHuprvKv3MPhXH9LonXX9N2y1WEl2u3ZuUSumlNYHOlxkS/XEHA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <title>CMS-DASHBOARD</title>
+</head>
+
+<body>
+
+<!--<style>-->
+<!--    th {-->
+<!--        white-space: nowrap; /* 防止文本换行 */-->
+<!--        text-align: left; /* 让文本水平排列 */-->
+<!--    }-->
+<!--</style>-->
+
+<div class="dash" id="app">
+    <div class="dash-nav dash-nav-dark">
+        <header>
+            <a href="#" class="menu-toggle">
+                <i class="fas fa-bars"></i>
+            </a>
+            <a href="index.html" class="spur-logo"><i class="fas fa-trophy"></i> <span>CMS</span></a>
+        </header>
+        <nav class="dash-nav-list">
+            <a href="index.html" class="dash-nav-item">
+                <i class="fas fa-home"></i> 仪表盘 </a>
+            <div class="dash-nav-dropdown">
+                <a href="#!" class="dash-nav-item dash-nav-dropdown-toggle">
+                    <i class="fas fa-plus"></i> 添加信息 </a>
+
+                <div class="dash-nav-dropdown-menu">
+                    <a href="competition-result.html" class="dash-nav-dropdown-item">新增竞赛成果</a>
+                </div>
+                <div class="dash-nav-dropdown-menu">
+                    <a href="competition-name.html" class="dash-nav-dropdown-item">新增竞赛条目</a>
+                </div>
+                <div class="dash-nav-dropdown-menu">
+                    <a href="major-name.html" class="dash-nav-dropdown-item">新增专业条目</a>
+                </div>
+                <div class="dash-nav-dropdown-menu">
+                    <a href="faculty-name.html" class="dash-nav-dropdown-item">新增学院条目</a>
+                </div>
+            </div>
+            <a href="query-competition-results.html" class="dash-nav-item">
+                <i class="fas fa-search"></i> 查询记录 </a>
+        </nav>
+    </div>
+    <div class="dash-app">
+        <header class="dash-toolbar">
+            <a href="#!" class="menu-toggle">
+                <i class="fas fa-bars"></i>
+            </a>
+            <div class="tools">
+                <div class="dropdown tools-item">
+                    <a href="#" class="" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <i class="fas fa-user"></i>
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenu1">
+                        <a class="dropdown-item" href="profile.html">个人信息</a>
+                        <a class="dropdown-item" href="../login.html">登出</a>
+                    </div>
+                </div>
+            </div>
+        </header>
+        <main class="dash-content">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-xl-12">
+                        <div class="card spur-card">
+                            <div class="card-header">
+                                <div class="spur-card-icon">
+                                    <i class="fas fa-trophy"></i>
+                                </div>
+                                <div class="spur-card-title" style="margin-right: 20px">查询记录</div>
+                                <!-- 模态框按钮 -->
+                                <button type="button" class="upload-btn" data-toggle="modal" data-target="#guideModal">
+                                    使用指南
+                                </button>
+                            </div>
+                            <div class="card-body ">
+                                <form method="POST">
+                                    <div class="form-row">
+                                        <div class="form-group col-md-2">
+<!--                                            <select class="form-control" data-live-search="true" required>-->
+<!--                                                <option value="AND">AND</option>-->
+<!--                                                <option value="OR">OR</option>-->
+<!--                                                <option value="NOT">NOT</option>-->
+<!--                                            </select>-->
+                                        </div>
+                                        <div class="form-group col-md-2">
+                                            <select class="form-control " data-live-search="true" required v-model="formRows[0].field">
+                                                <option value="studentName">姓名</option>
+                                                <option value="studentNumber">学号</option>
+                                                <option value="majorName">专业</option>
+                                                <option value="facultyName">学院</option>
+                                                <option value="grade">年级</option>
+                                                <option value="groupName">组别</option>
+                                                <option value="title">作品名称</option>
+                                                <option value="mentor">指导老师</option>
+                                                <option value="prize">获奖等级</option>
+                                                <option value="competitionName">竞赛名称</option>
+                                                <option value="competitionLevel">竞赛级别</option>
+                                                <option value="year">年份</option>
+                                            </select>
+                                        </div>
+                                        <div class="form-group col-md-7">
+                                            <input type="text" class="form-control" placeholder="输入内容" required v-model="formRows[0].value">
+                                        </div>
+                                        <div class="add form-group" style="margin-right:3px" @click="addFormRow"></div>
+                                        <div class="sub form-group" @click="removeFormRow"></div>
+                                    </div>
+
+                                    <div v-for="(row, index) in formRows.slice(1)" :key="index" class="form-row">
+                                        <div class="form-group col-md-2">
+                                            <select v-model="row.logic" class="form-control" data-live-search="true" required>
+                                                <option value="AND">AND</option>
+                                                <option value="OR">OR</option>
+                                                <option value="NOT">NOT</option>
+                                            </select>
+                                        </div>
+                                        <div class="form-group col-md-2">
+                                            <select v-model="row.field" class="form-control " data-live-search="true" required>
+                                                <option value="studentName">姓名</option>
+                                                <option value="studentNumber">学号</option>
+                                                <option value="majorName">专业</option>
+                                                <option value="facultyName">学院</option>
+                                                <option value="grade">年级</option>
+                                                <option value="group">组别</option>
+                                                <option value="title">作品名称</option>
+                                                <option value="mentor">指导老师</option>
+                                                <option value="prize">获奖等级</option>
+                                                <option value="competitionName">竞赛名称</option>
+                                                <option value="competitionLevel">级别</option>
+                                                <option value="year">年份</option>
+                                            </select>
+                                        </div>
+                                        <div class="form-group col-md-7">
+                                            <input v-model="row.value" type="text" class="form-control" placeholder="输入内容" required>
+                                        </div></div>
+                                    <button type="button" class="btn btn-primary " style="margin-right : 20px;" @click="queryCompetitionResults">查询</button>
+                                    <button type="button" class="btn btn-primary " style="margin-right : 150px;" @click="resetQueryConditions">重置查询条件</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-12">
+                        <div class="card spur-card">
+                            <div class="card-header">
+                                <div class="spur-card-icon">
+                                    <i class="fas fa-table"></i>
+                                </div>
+                                <div class="spur-card-title" style="margin-right: 20px">记录列表</div>
+                                <button type="button" class="upload-btn" @click="resetResultsList" style="margin-right:20px">重置列表</button>
+                                <button type="button" class="upload-btn" @click="confirmDownload">查询结果导出</button>
+                            </div>
+
+                            <div class="card" style="min-width: 900px; overflow-x: scroll">
+                            <div class="card-body" style="min-width: 700px">
+                                    <table class="table table-in-card" >
+                                        <thead>
+                                        <tr>
+                                            <th scope="col">序号</th>
+                                            <th scope="col">姓名</th>
+                                            <th scope="col">学号</th>
+                                            <th scope="col">专业</th>
+                                            <th scope="col">学院</th>
+                                            <th scope="col">年级</th>
+                                            <th scope="col">组别</th>
+                                            <th scope="col">作品名称</th>
+                                            <th scope="col">指导老师</th>
+                                            <th scope="col">获奖等级</th>
+                                            <th scope="col">竞赛名称</th>
+                                            <th scope="col">竞赛级别</th>
+                                            <th scope="col">年份</th>
+                                            <th scope="col">业绩在学院</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody id="competitionNameTableBody">
+
+                                        <tr v-for="(item,index) in competitionResultsList" >
+                                            <th scope="row">{{index + 1 }}</th>
+                                            <td v-if="!isEditing(item.id)">
+                                                {{item.studentName}}
+                                            </td>
+                                            <td v-else>
+                                                <input type="text" class="input-edit" v-model="editingItemName"/>
+                                            </td>
+
+                                            <td v-if="!isEditing(item.id)">
+                                                {{item.studentNumber}}
+                                            </td>
+                                            <td v-else>
+                                                <input type="text" class="input-edit" v-model="editingItemName"/>
+                                            </td>
+
+                                            <td v-if="!isEditing(item.id)">
+                                                {{item.majorName}}
+                                            </td>
+                                            <td v-else>
+                                                <input type="text" class="input-edit" v-model="editingItemName"/>
+                                            </td>
+
+                                            <td v-if="!isEditing(item.id)">
+                                                {{item.facutlyName}}
+                                            </td>
+                                            <td v-else>
+                                                <input type="text" class="input-edit" v-model="editingItemName"/>
+                                            </td>
+
+                                            <td v-if="!isEditing(item.id)">
+                                                {{item.grade}}
+                                            </td>
+                                            <td v-else>
+                                                <input type="text" class="input-edit" v-model="editingItemName"/>
+                                            </td>
+
+                                            <td v-if="!isEditing(item.id)">
+                                                {{item.groupName}}
+                                            </td>
+                                            <td v-else>
+                                                <input type="text" class="input-edit" v-model="editingItemName"/>
+                                            </td>
+
+                                            <td v-if="!isEditing(item.id)">
+                                                {{item.title}}
+                                            </td>
+                                            <td v-else>
+                                                <input type="text" class="input-edit" v-model="editingItemName"/>
+                                            </td>
+
+                                            <td v-if="!isEditing(item.id)">
+                                                {{item.mentor}}
+                                            </td>
+                                            <td v-else>
+                                                <input type="text" class="input-edit" v-model="editingItemName"/>
+                                            </td>
+
+                                            <td v-if="!isEditing(item.id)">
+                                                {{item.prize}}
+                                            </td>
+                                            <td v-else>
+                                                <input type="text" class="input-edit" v-model="editingItemName"/>
+                                            </td>
+
+                                            <td v-if="!isEditing(item.id)">
+                                                {{item.competitionName}}
+                                            </td>
+                                            <td v-else>
+                                                <input type="text" class="input-edit" v-model="editingItemName"/>
+                                            </td>
+
+                                            <td v-if="!isEditing(item.id)">
+                                                {{item.competitionLevel}}
+                                            </td>
+                                            <td v-else>
+                                                <input type="text" class="input-edit" v-model="editingItemName"/>
+                                            </td>
+
+                                            <td v-if="!isEditing(item.id)">
+                                                {{item.year}}
+                                            </td>
+                                            <td v-else>
+                                                <input type="text" class="input-edit" v-model="editingItemName"/>
+                                            </td>
+
+                                            <td v-if="!isEditing(item.id)">
+                                                {{item.inFaculty}}
+                                                <button class="btn btn-primary btn-sm float-right"
+                                                        @click="editItem(item.id, item.competitionName)">编辑</button>
+                                                <button class="btn btn-danger btn-sm float-right mr-1"
+                                                        @click="confirmDelete(item.id, item.competitionName)">删除</button>
+                                            </td>
+                                            <td v-else>
+                                                <input type="text" class="input-edit" v-model="editingItemName"/>
+                                                <button class="btn btn-primary btn-sm float-right"
+                                                        @click="confirmSave()">保存</button>
+                                                <button class="btn btn-danger btn-sm float-right mr-1"
+                                                        @click="cancelUpdate()">取消</button>
+                                            </td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                            </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </main>
+
+        <!-- 模态框 -->
+        <div class="modal fade" id="guideModal" tabindex="-1" role="dialog" aria-labelledby="guideModalLabel" aria-hidden="true">
+            <div class="modal-dialog model-lg" role="document" style="max-width: 90%">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="guideModalLabel">页面逻辑及语法规则</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body" style="padding-left: 30px; padding-right: 30px;">
+                        <ol>
+                            <li>点击第一列右侧的加号和减号可以实现查询列数的增减（最少为1列）。</li>
+                            <li>对于每一列查询条件，可以选择逻辑连接符和查询字段（可以多次选择同一字段），同时要注意逻辑符的运算优先级（NOT &gt; AND &gt; OR）。</li>
+                            <li>特殊符号共有 + ~ _ %。~用于范围查询，+是同一个字段中的或运算符，_和%用于模糊查询（通配符）。<strong>+和~作为二元运算符，使用时两边必须使用空格间隔开（可以看4、5的使用示例）</strong>。</li>
+                            <li>在所有字段中，都可以使用+进行批量查询。例如查询三个人a、b、c的获奖记录，可以选择姓名字段输入：a + b + c。（+两边有空格）</li>
+                            <li>对于<strong>年份</strong>和<strong>年级</strong>字段支持范围查询。例如2020 ~ 2022。（~两边有空格）</li>
+                            <li>对于<strong>除了年份和年级</strong>的字段外，都支持模糊查询，使用_表示一个字符，使用%表示0或多个字符。例如要查询姓名以陈开头的，则选择姓名字段输入：陈%；若要查询学号以22开头的，则选择学号字段，输入：22%。；若要查询学号以22开头，且以01结尾的，则选择学号字段，输入：22% + %01。</li>
+                            <li>如果要查询的内容中包含了+ ~ _ %，除了~，其余都需要用反斜杆\来进行转义，例如要查询竞赛“互联网＋”，可以选择字段竞赛名称，输入：%互联网\＋%。</li>
+                            <li>对于逻辑连接符，要尤其关注它们的运算优先级，选择NOT的会优先计算得到结果（在完成NOT运算后，与前后查询条件相连接的逻辑为AND），选择OR会将上下两边拆成两个运算整体。如果没有特殊情况，通常只会用到AND和NOT。</li>
+                            <li>在一个查询行内，只有+用于行内的OR运算，而不支持行内AND和NOT运算（之后可能会补上），所以对于同一个字段，可以使用多个查询行来完成逻辑连接。例如要查询姓名以刘开头，且不以平结尾的，第一行输入：刘%，第二行选择逻辑NOT，输入：%平；若要查询竞赛名称同时包含”程序设计“和“final”，第一行输入：%程序设计%，第二行选择逻辑AND，输入%final%。</li>
+                            <li>理论上，行间逻辑运算符的存在，使得任意逻辑的查询都成立，只是便捷的程度不一样。</li>
+                        </ol>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">关闭</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+</body>
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.14/dist/js/bootstrap-select.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+<script src="js/spur.js"></script>
+<script src="/dashboard/js/vue3.js"> </script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.5/xlsx.full.min.js"></script>
+
+<script>
+    const {createApp} = Vue;
+
+    createApp({
+        data(){
+            return{
+                baseurl: "/add-info/competition-result",
+                competitionResultsList: null,
+                editingItemId:null,
+                editingItemName:null,
+                formRows: [{
+                    'logic': '',
+                    'field': 'studentName',
+                    'value': ''
+                }],
+            } // 用于存储生成的表单行
+        }
+        ,
+        methods: {
+            addFormRow() {
+                // 点击加号时添加一个新的表单行
+                this.formRows.push({
+                    'logic': 'AND',
+                    'field': 'studentName',
+                    'value': ''
+                });
+            },
+            removeFormRow() {
+                // 点击减号时移除最后一个表单行
+                if (this.formRows.length >= 2) {
+                    this.formRows.pop();
+                }
+            },
+            queryCompetitionResults() {
+                // 构建 JSON 数据
+                const queryData = {"conditions" : this.formRows};
+
+                fetch(this.baseurl + "/query", {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(queryData),
+                })
+                    .then(res => res.json())
+                    .then(res => {
+                        if (res.code === 1) {
+                            this.competitionResultsList = res.data;
+                            Swal.fire("查询成功！", `共查询到${this.competitionResultsList.length}条有效数据`, "success");
+                            console.log("查询到的竞赛记录为：{}", this.competitionResultsList);
+                        } else {
+                            Swal.fire("查询失败！", "请检查是否符合查询语法", "error");
+                        }
+                    })
+            },
+            resetQueryConditions() {
+                while(this.formRows.length > 1){
+                    this.formRows.pop();
+                }
+                this.formRows[0].field = "studentName";
+                this.formRows[0].value = "";
+            },
+            resetResultsList() {
+                this.competitionResultsList = null;
+            },
+            confirmDownload() {
+                Swal.fire({
+                    type: 'warning', // 弹框类型
+                    title: '您确定导出查询结果吗？', //标题
+                    text: this.competitionName, //显示内容
+
+                    confirmButtonColor: '#3085d6',// 确定按钮的 颜色
+                    confirmButtonText: '确定',// 确定按钮的 文字
+                    showCancelButton: true, // 是否显示取消按钮
+                    cancelButtonColor: '#d33', // 取消按钮的 颜色
+                    cancelButtonText: "取消", // 取消按钮的 文字
+
+                    focusCancel: false, // 是否聚焦 取消按钮
+                    reverseButtons: false // 是否 反转 两个按钮的位置 默认是  左边 确定  右边 取消
+                }).then((isConfirm) => {
+                    //判断 是否 点击的 确定按钮
+                    if (isConfirm.value) {
+                        this.downloadResults();
+                    }
+
+                })
+                    .catch(e => {
+                        alert(e);
+                    })
+            },
+            isEditing(id) {
+                return id === this.editingItemId;
+            },
+            // editItem(id, ) {
+            //     this.editingItemId = id;
+            //
+            // }
+            downloadResults() {
+                // if(typeof require !== 'undefuned')
+                //     var XLSX = require('XLSX')
+
+                // 1. 准备需要导出的数据
+                const data = this.competitionResultsList.map(item => ({
+                    "姓名": item.studentName,
+                    "学号": item.studentNumber,
+                    "专业": item.majorName,
+                    "学院": item.facultyName,
+                    "年级": item.grade,
+                    "组别": item.groupName,
+                    "作品名称": item.title,
+                    "指导老师": item.mentor,
+                    "获奖等级": item.prize,
+                    "竞赛名称": item.competitionName,
+                    "级别": item.competitionLevel,
+                    "年份": item.year,
+                    "业绩在学院": item.inFaculty
+                }));
+
+                // 2. 使用 XLSX.utils.json_to_sheet 将数据转换为工作表
+                const worksheet = XLSX.utils.json_to_sheet(data);
+
+                // 3. 创建工作簿
+                const workbook = {
+                    SheetNames: ['Sheet1'],
+                    Sheets: {
+                        'Sheet1': worksheet
+                    }
+                };
+
+                // 4. 设置导出文件的参数
+                const wopts = {
+                    bookType: 'xlsx', // 文件类型
+                    bookSST: false,   // 是否生成共享字符串表
+                    type: 'binary'    // 输出类型
+                };
+
+                // 5. 将工作簿转换为二进制数据
+                const excelBinary = XLSX.write(workbook, wopts);
+
+                // 6. 将二进制数据转换为 Blob 对象
+                const blob = new Blob([this.changeData(excelBinary)], { type: 'application/octet-stream' });
+
+                // 7. 触发文件下载
+                this.saveAs(blob, '查询结果.xlsx');
+            },
+
+            changeData(s) {
+                let buf;
+                let view;
+                if (typeof ArrayBuffer !== 'undefined') {
+                    buf = new ArrayBuffer(s.length);
+                    view = new Uint8Array(buf);
+                    for (let i = 0; i !== s.length; ++i) view[i] = s.charCodeAt(i) & 0xFF;
+                    return buf;
+                } else {
+                    buf = new Array(s.length);
+                    for (let i = 0; i !== s.length; ++i) buf[i] = s.charCodeAt(i) & 0xFF;
+                    return buf;
+                }
+            },
+
+             // saveAs 函数定义
+            saveAs(obj, fileName) {
+                let tmpa = document.createElement("a");
+                tmpa.download = fileName || "下载";
+                tmpa.href = URL.createObjectURL(obj); // 生成下载链接
+                tmpa.click(); // 触发点击事件下载文件
+
+                setTimeout(function () { // 延时释放
+                    URL.revokeObjectURL(obj); // 释放 URL
+                }, 100);
+            },
+
+    },
+        }
+    ).mount("#app");
+</script>
+
+</html>

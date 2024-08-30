@@ -1,0 +1,417 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css">
+    <link href="https://fonts.googleapis.com/css?family=Nunito:400,600|Open+Sans:400,600,700" rel="stylesheet">
+    <link rel="stylesheet" href="css/spur.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert2/11.12.4/sweetalert2.min.css" integrity="sha512-WxRv0maH8aN6vNOcgNFlimjOhKp+CUqqNougXbz0E+D24gP5i+7W/gcc5tenxVmr28rH85XHF5eXehpV2TQhRg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert2/11.12.4/sweetalert2.min.js" integrity="sha512-w4LAuDSf1hC+8OvGX+CKTcXpW4rQdfmdD8prHuprvKv3MPhXH9LonXX9N2y1WEl2u3ZuUSumlNYHOlxkS/XEHA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert2/11.12.4/sweetalert2.min.css" integrity="sha512-WxRv0maH8aN6vNOcgNFlimjOhKp+CUqqNougXbz0E+D24gP5i+7W/gcc5tenxVmr28rH85XHF5eXehpV2TQhRg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert2/11.12.4/sweetalert2.min.js" integrity="sha512-w4LAuDSf1hC+8OvGX+CKTcXpW4rQdfmdD8prHuprvKv3MPhXH9LonXX9N2y1WEl2u3ZuUSumlNYHOlxkS/XEHA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <title>CMS-DASHBOARD</title>
+</head>
+
+<body>
+    <div class="dash" id="app">
+        <div class="dash-nav dash-nav-dark">
+            <header>
+                <a href="#!" class="menu-toggle">
+                    <i class="fas fa-bars"></i>
+                </a>
+                <a href="index.html" class="spur-logo"><i class="fas fa-trophy"></i> <span>CMS</span></a>
+            </header>
+            <nav class="dash-nav-list">
+                <a href="index.html" class="dash-nav-item">
+                    <i class="fas fa-home"></i> 仪表盘 </a>
+                <div class="dash-nav-dropdown">
+                    <a href="#" class="dash-nav-item dash-nav-dropdown-toggle">
+                        <i class="fas fa-plus"></i> 添加信息 </a>
+
+                    <div class="dash-nav-dropdown-menu">
+                        <a href="competition-result.html" class="dash-nav-dropdown-item">新增竞赛成果</a>
+                    </div>
+                    <div class="dash-nav-dropdown-menu">
+                        <a href="competition-name.html" class="dash-nav-dropdown-item">新增竞赛条目</a>
+                    </div>
+                    <div class="dash-nav-dropdown-menu">
+                        <a href="major-name.html" class="dash-nav-dropdown-item">新增专业条目</a>
+                    </div>
+                    <div class="dash-nav-dropdown-menu">
+                        <a href="faculty-name.html" class="dash-nav-dropdown-item">新增学院条目</a>
+                    </div>
+                </div>
+                <a href="query-competition-results.html" class="dash-nav-item">
+                    <i class="fas fa-search"></i> 查询记录 </a>
+            </nav>
+        </div>
+        <div class="dash-app">
+            <header class="dash-toolbar">
+                <a href="#!" class="menu-toggle">
+                    <i class="fas fa-bars"></i>
+                </a>
+                <div class="tools">
+                    <div class="dropdown tools-item">
+                        <a href="#" class="" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <i class="fas fa-user"></i>
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenu1">
+                            <a class="dropdown-item" href="profile.html">个人信息</a>
+                            <a class="dropdown-item" href="../login.html">登出</a>
+                        </div>
+                    </div>
+                </div>
+            </header>
+            <main class="dash-content">
+                <div class="container-fluid">
+                    <div class="col-md-12">
+                        <div class="card spur-card">
+                            <div class="card-header">
+                                <div class="spur-card-icon">
+                                    <i class="fas fa-chart-bar"></i>
+                                </div>
+                                <div class="spur-card-title">新增竞赛条目</div>
+                            </div>
+                            <div class="card-body ">
+                                <form class="row g-3 align-items-center" id="addComptNameForm" @submit.prevent="confirmAdd">
+                                    <div class="col">
+                                        <input type="text" class="form-control" id="inputComptName" placeholder="添加新的竞赛条目" v-model="competitionName"/>
+                                    </div>
+                                    <div class="col-auto">
+                                        <button type="submit" class="btn btn-primary" id="submitComptName">提交</button>
+                                    </div>
+                                </form>
+
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="col-md-12">
+                        <div class="card spur-card">
+                            <div class="card-header">
+                                <div class="spur-card-icon">
+                                    <i class="fas fa-table"></i>
+                                </div>
+                                <div class="spur-card-title">竞赛列表</div>
+                            </div>
+                            <div class="card-body ">
+                                <table class="table table-in-card">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col">序号</th>
+                                            <th scope="col">竞赛名称</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="competitionNameTableBody">
+                                        <tr v-for="(item,index) in competitionNamesList" >
+                                            <th scope="row">{{index + 1 }}</th>
+                                            <td v-if="!isEditing(item.id)">
+                                                {{item.competitionName}}
+                                                <button class="btn btn-primary btn-sm float-right"
+                                                        @click="editItem(item.id, item.competitionName)">编辑</button>
+                                                <button class="btn btn-danger btn-sm float-right mr-1"
+                                                        @click="confirmDelete(item.id, item.competitionName)">删除</button>
+                                            </td>
+                                            <td v-else>
+                                                <input type="text" class="input-edit" v-model="editingItemName"/>
+                                                <button class="btn btn-primary btn-sm float-right"
+                                                        @click="confirmSave()">保存</button>
+                                                <button class="btn btn-danger btn-sm float-right mr-1"
+                                                        @click="cancelUpdate()">取消</button>
+                                            </td>
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+
+                </div>
+            </main>
+        </div>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <script src="js/spur.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.5.1/sockjs.min.js"></script>
+
+    <script src="/dashboard/js/vue3.js"></script>
+
+    <script>
+        const {createApp}=Vue
+
+        createApp({
+            data(){
+                return {
+                    competitionNamesList: [],
+                    competitionName: null,
+                    baseurl: "/add-info/competition-name",
+                    editingItemId : null,
+                    editedItemName : null,
+                    editingItemName : null,
+
+                }
+            },
+
+            methods: {
+                confirmDelete(id, competitionName) {
+                    Swal.fire({
+                        type: 'warning', // 弹框类型
+                        title: '确定要删除这个竞赛条目吗？', //标题
+                        text: competitionName, //显示内容
+
+                        confirmButtonColor: '#3085d6',// 确定按钮的 颜色
+                        confirmButtonText: '确定',// 确定按钮的 文字
+                        showCancelButton: true, // 是否显示取消按钮
+                        cancelButtonColor: '#d33', // 取消按钮的 颜色
+                        cancelButtonText: "取消", // 取消按钮的 文字
+
+                        focusCancel: false, // 是否聚焦 取消按钮
+                        reverseButtons: false // 是否 反转 两个按钮的位置 默认是  左边 确定  右边 取消
+                    }).then((isConfirm) => {
+                        //判断 是否 点击的 确定按钮
+                        if (isConfirm.value) {
+                            this.deleteCompetition(id);
+                        }
+                    })
+                        .catch (e => {
+                            alert(e);
+                        })
+                },
+                deleteCompetition(id) {
+                    fetch(this.baseurl + "/delete/" + id, {
+                        method: 'DELETE',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        }
+                    })  .then(response => response.json())
+                        .then(result => {
+                            console.info("result为", result);
+                            if (result.code === 1) {
+                                this.getCompetitionNamesList();
+                                Swal.fire({
+                                    type: 'success',
+                                    title: "删除成功"
+                                }
+                                );
+                            } else {
+                                Swal.fire({
+                                    type: 'error',
+                                    title: '删除失败',
+                                });
+                            }
+                        })
+                        .catch((error) => {
+                            console.error('Error:', error);
+                        })
+                },
+                addCompetition() {
+                    // 发送JSON数据到服务器
+                    let data = {competitionName: this.competitionName};
+                    fetch(this.baseurl + '/add', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify(data)
+                    })
+                        .then(response => response.json())
+                        .then(result => {
+                            if(result.code === 1) {
+                                this.getCompetitionNamesList();
+                                this.competitionName = '';
+                                swal.fire('添加成功！');
+                            }
+                            else {
+                                console.log(result.msg);
+                                if(result.msg == "redirect2login"){
+                                    window.location.href = '../login.html'; //没有token信息，那么没有登录，重定向回登录界面
+                                    Swal.fire({
+                                        title:'请先登录！！',
+                                        type:'warning',
+                                    })
+                                }
+                                else{
+                                    Swal.fire({title:'数据提交失败', type:'error'});
+                                }
+                            }
+                        })
+                        .catch(error => {
+                            console.error('Error:', error);
+                            Swal.fire('数据提交失败，请重试。');
+
+                        });
+                },
+                async getCompetitionNamesList(){
+                    let res=await fetch(this.baseurl,
+                        {
+                            method : 'GET'
+                        })
+                    let json=await res.json()
+                    this.competitionNamesList=json.data
+                },
+               confirmAdd(){
+                   Swal.fire({
+                       type: 'warning', // 弹框类型
+                       title: '您确定添加以下竞赛条目吗？', //标题
+                       text: this.competitionName, //显示内容
+
+                       confirmButtonColor: '#3085d6',// 确定按钮的 颜色
+                       confirmButtonText: '确定',// 确定按钮的 文字
+                       showCancelButton: true, // 是否显示取消按钮
+                       cancelButtonColor: '#d33', // 取消按钮的 颜色
+                       cancelButtonText: "取消", // 取消按钮的 文字
+
+                       focusCancel: false, // 是否聚焦 取消按钮
+                       reverseButtons: false // 是否 反转 两个按钮的位置 默认是  左边 确定  右边 取消
+                   }).then((isConfirm) => {
+                           //判断 是否 点击的 确定按钮
+                           if (isConfirm.value) {
+                               Swal.fire("添加成功", "点击了确定", "success");
+                               this.addCompetition();
+                           }
+
+                       })
+                       .catch(e => {
+                           alert(e);
+                       })
+               },
+                isEditing(id){
+                    return id === this.editingItemId;
+            },
+                editItem(id, editedItemName){
+                    this.editingItemId = id;
+                    this.editedItemName = editedItemName;
+                    this.editingItemName = editedItemName;
+                },
+
+                confirmSave(){
+                    Swal.fire({
+                        type: 'warning', // 弹框类型
+                        title: '您确定完成以下更改操作吗？', //标题
+                        text: this.editedItemName + " ==> " +this.editingItemName, //显示内容
+
+                        confirmButtonColor: '#3085d6',// 确定按钮的 颜色
+                        confirmButtonText: '确定',// 确定按钮的 文字
+                        showCancelButton: true, // 是否显示取消按钮
+                        cancelButtonColor: '#d33', // 取消按钮的 颜色
+                        cancelButtonText: "取消", // 取消按钮的 文字
+
+                        focusCancel: false, // 是否聚焦 取消按钮
+                        reverseButtons: false // 是否 反转 两个按钮的位置 默认是  左边 确定  右边 取消
+                    }).then((isConfirm) => {
+                        //判断 是否 点击的 确定按钮
+                        if (isConfirm.value) {
+                            this.updateCompetitionName();
+                        }
+
+                    })
+                        .catch(e => {
+                            alert(e);
+                        })
+                },
+
+                updateCompetitionName(){
+                    let data = {competitionName : this.editingItemName, id : this.editingItemId};
+                    fetch(this.baseurl + "/update", {
+                        method:'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body:JSON.stringify(data),
+                    }
+                    )
+                        .then(res => res.json())
+                        .then(res => {
+                            if (res.code === 1){
+                                this.getCompetitionNamesList();
+                                Swal.fire("更新成功", "点击了确定", "success");
+                            }
+                            else Swal.fire("更新失败", "请重试", "error");
+                        });
+                    this.editingItemId = null;
+                },
+                cancelUpdate(){
+                    this.editingItemId = null;
+                }
+            },
+
+            async created(){
+                await this.getCompetitionNamesList();
+            }
+        }).mount("#app")
+    </script>
+
+
+<!--    <script>-->
+<!--        // document.cookie = "satoken=" + localStorage.getItem("xc-satoken") + ";path=/; max-age=86400;";-->
+<!--        document.getElementById('addComptNameForm').addEventListener('submit', function(event) {-->
+<!--            event.preventDefault(); // 阻止表单的默认提交行为-->
+
+<!--            // 获取表单数据-->
+<!--            const competitionName = document.getElementById('inputComptName').value;-->
+<!--            console.log(competitionName);-->
+
+<!--            // 创建JSON对象-->
+<!--            const data = { competitionName };-->
+<!--            console.log("data为：", data);-->
+<!--        });-->
+<!--    </script>-->
+
+<!--    <script>-->
+<!--        const pageName = "competition-name";-->
+<!--        const webSocketUrl = "api/websocket/" + pageName;-->
+
+<!--        window.addEventListener('load', function(){-->
+<!--            // Set a cookie with name 'sessionId', value 'yourSessionId', and an expiration time of 1 day-->
+<!--            document.cookie = "satoken=" + localStorage.getItem("xc-satoken") +" ;path=/; max-age=86400; SameSite=None";-->
+
+<!--            console.log("cookie一共有:", document.cookie);-->
+<!--            const webSocketObject = new WebSocket(webSocketUrl);-->
+<!--            webSocketObject.onopen = webSocketOnOpen;-->
+<!--            webSocketObject.onmessage = webSocketOnMessage;-->
+<!--            webSocketObject.onclose = webSocketOnClose;-->
+<!--            webSocketObject.onerror = webSocketOnError;-->
+
+<!--        function webSocketOnOpen(e){-->
+<!--            console.log('与服务端连接打开->',e)-->
+<!--        }-->
+
+<!--        function webSocketOnMessage(e){-->
+<!--            console.log('来自服务端的消息->',e)-->
+
+<!--            // Parse the received JSON data-->
+<!--            const competitionNames = JSON.parse(e.data);-->
+
+<!--            // Update the competition table or handle the data as needed-->
+<!--            updateCompetitionTable(competitionNames);-->
+<!--           }-->
+
+<!--        function webSocketOnError(e){-->
+<!--            console.log('与服务端连接异常->',e)-->
+<!--        }-->
+
+<!--        function webSocketOnClose(e){-->
+<!--            console.log('与服务端连接关闭->',e)-->
+<!--        }-->
+<!--        });-->
+
+<!--        // 页面关闭或刷新时断开 WebSocket 连接-->
+<!--        window.addEventListener('beforeunload', function() {-->
+<!--            if (webSocketObject !== null) {-->
+<!--                webSocketObject.close();-->
+<!--                console.log('WebSocket 已关闭');-->
+<!--            }-->
+<!--        })-->
+<!--    </script>-->
+
+</body>
+
+</html>
